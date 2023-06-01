@@ -1,2 +1,8 @@
-# bankingapp
-A small banking app based on DRF.
+# API-Gateway
+
+API-Gateway - один из микросервисов в архитектуре проекта.
+
+Он отвечает за:
+- маршрутизацию запросов
+- работу с токенами
+
