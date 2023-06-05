@@ -55,7 +55,7 @@ jobs:
         quiet_mode: true # optional, default is false
         # (--diff) Don't write the files back, just output a diff for each file on stdout.
 
-        print_diff_mode: false # optional, default is false
+        print_diff_mode: true # optional, default is false
         # (--check) Don't write the files back, just return the status. Return code 0 means nothing
         # would change. Return code 1 means some files would be reformatted. Return code 123 means
         # there was an internal error.
