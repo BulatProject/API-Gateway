@@ -33,16 +33,15 @@ jobs:
         mkdir -p public/badges
         echo undefined > public/badges/$CI_JOB_NAME.score
         ls -a
+        - pip install pylint --quiet
+        - pip install anybadge
         pylint --rcfile=.pylintrc --exit-zero --output-format=text $(find -type f -name "*.py" ! -path "**/.venv/**") | tee pylint.txt
         score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt > public/badges/$CI_JOB_NAME.score)
         echo 'Pylint score was $score'
-        anybadge --overwrite --label=$CI_JOB_NAME --value=$(cat public/badges/$CI_JOB_NAME.score) --file=public/badges/$CI_JOB_NAME.svg 2=red 4=orange 8=yellow 10=green
     - name: Lint with flake8
       run: |
         ls -a
         mypy --install-types --non-interactive .
-    - name: Lint with flake8
-      run: |
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
