@@ -30,7 +30,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with Pylint
       run: |
-        ls -a
         - pip install pylint --quiet
         - pip install anybadge
         pylint --rcfile=.pylintrc --exit-zero --output-format=text $(find -type f -name "*.py" ! -path "**/.venv/**") | tee pylint.txt
