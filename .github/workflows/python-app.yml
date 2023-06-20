@@ -30,14 +30,10 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with Pylint
       run: |
-        mkdir -p public/badges
-        echo undefined > public/badges/$CI_JOB_NAME.score
         ls -a
         - pip install pylint --quiet
         - pip install anybadge
         pylint --rcfile=.pylintrc --exit-zero --output-format=text $(find -type f -name "*.py" ! -path "**/.venv/**") | tee pylint.txt
-        score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt > public/badges/$CI_JOB_NAME.score)
-        echo 'Pylint score was $score'
     - name: Lint with flake8
       run: |
         ls -a
