@@ -2,9 +2,13 @@ name: Run checks
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - 'BA**'
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - 'BA**'
 
 permissions:
   contents: read
@@ -35,25 +39,9 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Run python black code formatter
-      uses: DataDog/action-py-black-formatter@v2.5
-      with:
-        # Black additional input arguments.
-
-        quiet_mode: true # optional, default is false
-        # (--diff) Don't write the files back, just output a diff for each file on stdout.
-
-        print_diff_mode: true # optional, default is false
-        # (--check) Don't write the files back, just return the status. Return code 0 means nothing
-        # would change. Return code 1 means some files would be reformatted. Return code 123 means
-        # there was an internal error.
-
-        check_mode: false # optional, default is false
-        # Turn on if you only want to check changed files instead of all files.
-
-        only_changed_files: false # optional, default is false
-        # Sha of the commit to compare files to.
-
+    - name: Run black
+      run: |
+        black . --line-length=79 --include='\.pyi?$' --check
     - name: Test with pytest
       run: |
         pytest
